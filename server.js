@@ -10,6 +10,23 @@ const app = express()
 
 
 
+
 app.get('/main', (_, res) => {
-    res.send({msg: 'Welcome to the CTL main page'})
+        res.send({msg: 'Welcome to the CTL main page'})
+    })
+    
+
+
+
+
+
+
+    
+
+/*
+const path = require('path')
+app.use(express.static('front/build'))
+app.get('/*', (_, res) =>{
+    res.sendFile(path.join(__dirname, './front/build/index.html'))
 })
+*/
