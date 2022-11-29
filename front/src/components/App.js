@@ -1,23 +1,13 @@
 import React from 'react';
-import { useState } from 'react';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 export default function App() {
-  const [msg, setMsg] = useState('')
-  
-  const handleClick = async () => {
-    const response = await window.fetch('/main')
-    const json = await response.json()
-    const msg = json.msg
-    setMsg(msg)
-  }
-  
   return (
-    <div>
-      <header>
-        <button onClick={handleClick}>launch the main page</button>
-        <p>{msg}</p>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path = '/' element={<div><h1>Home page</h1></div>} />
+        <Route path = 'login' element={<div><h1>login page</h1></div>} />
+      </Routes>
+    </Router>
   );
 }
