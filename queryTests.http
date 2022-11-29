@@ -1,0 +1,4 @@
+// REST Client plugin has to be installed for using below tests of backend routes and queries
+
+// Main route
+GET http://localhost:8018/main
