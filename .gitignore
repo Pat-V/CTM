@@ -4,4 +4,5 @@ front/node_modules/
 
 # secret files
 .env
+toDo.txt
 
