@@ -7,7 +7,7 @@ export default function Banner() {
   return (
     <div className="mtl-banner">
       <img src={logo} alt={title} className="mtl-logo" />
-      <h1>{title}</h1>
+      <h2>{title}</h2>
     </div>
   );
 }
