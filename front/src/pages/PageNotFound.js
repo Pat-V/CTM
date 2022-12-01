@@ -4,7 +4,7 @@ export default function PageNotFoud() {
   return (
     <section className='section'>
       <h2>404</h2>
-      <p>page not found</p><Link to='/' className='btn'>Go back to the CTM home page</Link>
+      <p>page not found</p><Link to='/' className='btn'>Open the CTM home page</Link>
     </section>
   );
 };
