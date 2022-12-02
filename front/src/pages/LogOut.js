@@ -1,8 +1,8 @@
 
-export default function About() {
+export default function Logout() {
   return (
     <section className='section'>
-      <h3>About</h3>
+      <h3>Logout</h3>
     </section>
   );
 };
