@@ -1,10 +1,10 @@
 import { useState } from 'react';
 const Login = () => {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+     // retrouver la valeur entrée dans le champ name et l'affichier avec une alerte
   };
 
   return (
@@ -21,18 +21,6 @@ const Login = () => {
             id='name'
             value={name}
             onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className='form-row'>
-          <label htmlFor='email' className='form-label'>
-            email
-          </label>
-          <input
-            type='email'
-            className='form-input'
-            id='email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <button type='submit' className='btn btn-block'>

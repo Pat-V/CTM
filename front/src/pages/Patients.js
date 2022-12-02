@@ -1,8 +1,8 @@
 
-export default function About() {
+export default function Patients() {
   return (
     <section className='section'>
-      <h3>About</h3>
+      <h3>Patients</h3>
     </section>
   );
 };

@@ -1,8 +1,8 @@
 
-export default function About() {
+export default function Portfolio() {
   return (
     <section className='section'>
-      <h3>About</h3>
+      <h3>Portfolio</h3>
     </section>
   );
 };
