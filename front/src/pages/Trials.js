@@ -1,11 +1,20 @@
+import React, { useState } from "react"
 
+export default function Trials() {
+  const [trialsInfo, setTrialsInfo] = useState()
 
-const Trials = () => {
-  return (
+  const ListsAllTrials = async () =>{
+      const data = await  window.fetch('/CT')
+      const json = await data.json()
+      setTrialsInfo(json)
+}
+ListsAllTrials()
+  
+return (
     <>
       <section className='section'>
         <h3> Clinical trials</h3>
-        <table class="table table-hover">
+        <table className="table table-hover">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -18,29 +27,22 @@ const Trials = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td><a href="https://www.google.com"  >lien</a></td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>Larry</td>
-              <td>the Bird</td>
-              <td>@twitter</td>
-            </tr>
+            {(trialsInfo && 
+              trialsInfo.map((trial) => (
+                <tr>
+                  <th scope="row">{trial.id}</th>
+                  <td>{trial.title}</td>
+                  <td>{trial.description}</td>
+                  <td>{trial.startDate}</td>
+                  <td>{trial.endDate}</td>
+                  <td>{trial.NBPhysicians}</td>
+                  <td>{trial.NBPatients}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </section>
     </>
   );
 };
-export default Trials;

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import SharedLayout from '../pages/SharedLayout'
-import Login from '../pages/Login.js'
+import Login from '../pages/login.js'
 import Trials from '../pages/Trials.js'
 import Portfolio from '../pages/Portfolio';
 import Physicians from '../pages/Physicians';
