@@ -4,12 +4,22 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-     // retrouver la valeur entrée dans le champ name et l'affichier avec une alerte
+    
+    const data = await  window.fetch(`/login:${name}`)
+    console.log(data)
+    const json = await data.json()
+    console.log(json)
+       
+    localStorage.setItem('logedIn', true)
+    console.log(json)
+    
+    
   };
+
 
   return (
     <section className='section'>
-      <form className='form' onSubmit={handleSubmit}>
+      <form className='form'>
         <h5>login</h5>
         <div className='form-row'>
           <label htmlFor='name' className='form-label'>
@@ -23,7 +33,7 @@ const Login = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <button type='submit' className='btn btn-block'>
+        <button onClick={handleSubmit} className='btn btn-block'>
           login
         </button>
       </form>
