@@ -13,7 +13,7 @@ ListsAllTrials()
 return (
     <>
       <section className='section'>
-        <h3> Clinical trials</h3>
+        <h3>Clinical trials</h3>
         <table className="table table-hover">
           <thead>
             <tr>

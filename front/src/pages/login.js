@@ -1,5 +1,6 @@
 import { useState } from 'react';
 const Login = () => {
+  console.log("Par ici")
   const [name, setName] = useState('');
 
   const handleSubmit = async (e) => {
@@ -8,12 +9,7 @@ const Login = () => {
     const data = await  window.fetch(`/login:${name}`)
     console.log(data)
     const json = await data.json()
-    console.log(json)
-       
-    localStorage.setItem('logedIn', true)
-    console.log(json)
-    
-    
+    console.log(json.role)
   };
 
 
