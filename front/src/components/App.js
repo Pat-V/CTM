@@ -12,6 +12,8 @@ import LogOut from '../pages/LogOut.js';
 import PageNotFound from '../pages/PageNotFound.js'
 
 export default function App() {
+  localStorage.setItem('logedIn', false)
+  
   return (
     <Router>
       <Routes>
@@ -26,7 +28,7 @@ export default function App() {
           <Route path = '*' element={<PageNotFound />} />
         </Route>  
       </Routes>
-      <footer className='footer'  > © 2022-?  -  CTM  -  contact: patrice.vitte@efrei.com </footer>
+      <footer className='footer'  > © 2022/22  -  CTM  -  contact: patrice.vitte@efrei.net </footer>
     </Router>
   );
 }

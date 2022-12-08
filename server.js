@@ -10,21 +10,28 @@ const app = express()
 
 
       
-app.get('/login:name', (req, res) => {
-    
+app.get('/login:name', function (req, res)  {
+    /*
+    let ID_ToSearch = ''
     fs.readFile('./data/users.json', 'utf8', (err, data) => {
         if (err) {console.log(`Error reading file from disk: ${err}`)}
         else {
             for (const iterator of JSON.parse(data)) {
-                console.log(iterator.name)
-                console.log(req.params.name)
-                if (iterator.name  === req.params.name){
-                    res.json(iterator)
-                    break
+                ID_ToSearch = req.params.name ; ID_ToSearch = ID_ToSearch.replace(':','')
+                console.log("par ici")
+                if (iterator.name  === ID_ToSearch){
+                    console.log("ici maintenant" + iterator)
+                    
+                    return res.redirect("/Patients")
+
                 }
+                res.json({"id": "Not found"})
             }
         }
     })
+    */
+    console.log("Par là")
+    res.redirect('/Patients')
 })
 
 app.get('/CT', (req, res) => {
@@ -41,16 +48,17 @@ app.get('/Portfolio', (req, res) => {
     fs.readFile('./data/trialsPortfolio.json', 'utf8', (err, data) => {
         if (err) {console.log(`Error reading file from disk: ${err}`)}
         else {
-            res.json(data)
+            res.json(JSON.parse(data))
         }
     })
 })
 
+//require du fichier
 app.get('/Physicians', (req, res) => {
     fs.readFile('./data/physicians.json', 'utf8', (err, data) => {
         if (err) {console.log(`Error reading file from disk: ${err}`)}
         else {
-            res.json(data)
+            res.json(JSON.parse(data))
         }
     })
 })
@@ -59,7 +67,7 @@ app.get('/Patients', (req, res) => {
     fs.readFile('./data/patients.json', 'utf8', (err, data) => {
         if (err) {console.log(`Error reading file from disk: ${err}`)}
         else {
-            res.json(data)
+            res.json(JSON.parse(data))
         }
     })
 })
