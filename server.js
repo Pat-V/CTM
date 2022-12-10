@@ -1,4 +1,5 @@
 const express = require('express')
+const users = require('./data/users.json')
 const fs = require('fs')
 require('dotenv').config()
 
@@ -8,30 +9,26 @@ const app = express()
       app.use(express.json())
       app.listen(PORT, () => {console.log(`Hi, server is launched on port: ${PORT}`)})
 
-
-      
 app.get('/login:name', function (req, res)  {
-    /*
-    let ID_ToSearch = ''
-    fs.readFile('./data/users.json', 'utf8', (err, data) => {
-        if (err) {console.log(`Error reading file from disk: ${err}`)}
-        else {
-            for (const iterator of JSON.parse(data)) {
-                ID_ToSearch = req.params.name ; ID_ToSearch = ID_ToSearch.replace(':','')
-                console.log("par ici")
-                if (iterator.name  === ID_ToSearch){
-                    console.log("ici maintenant" + iterator)
-                    
-                    return res.redirect("/Patients")
-
-                }
-                res.json({"id": "Not found"})
-            }
+    let dataToReturn = []
+    for (const iterator of users) {
+        ID_ToSearch = req.params.name ; ID_ToSearch = ID_ToSearch.replace(':','')
+        if (iterator.name  === ID_ToSearch){
+            console.log("Found " + iterator.name + " in users.json")
+            dataToReturn = iterator
+            //res.json(iterator)
+            break
         }
-    })
-    */
-    console.log("Par là")
-    res.redirect('/Patients')
+    }
+    const isEmpty = Object.keys(dataToReturn).length === 0 
+    console.log(isEmpty)
+    if (isEmpty) {
+        res.send({"userID": "Not found"})
+    } else {
+        res.json(dataToReturn)
+    }
+    
+
 })
 
 app.get('/CT', (req, res) => {

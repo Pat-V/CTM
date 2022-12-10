@@ -10,9 +10,14 @@ import Patients from '../pages/Patients';
 import About from '../pages/About.js'
 import LogOut from '../pages/LogOut.js';
 import PageNotFound from '../pages/PageNotFound.js'
+import PatientAdd from '../pages/PatientAdd';
 
 export default function App() {
-  localStorage.setItem('logedIn', false)
+  localStorage.setItem('CTM_logedIn', false)
+  localStorage.setItem('CTM_UserID', '')
+  localStorage.setItem('CTM_UserName', '')
+  localStorage.setItem('CTM_UserRole', '')
+  localStorage.setItem('CTM_WelcomeMessage',"")
   
   return (
     <Router>
@@ -26,7 +31,8 @@ export default function App() {
           <Route path = 'about' element={<About />} />
           <Route path = 'logout' element={<LogOut />} />
           <Route path = '*' element={<PageNotFound />} />
-        </Route>  
+          <Route path = 'AddPatient' element={<PatientAdd />} />
+        </Route>
       </Routes>
       <footer className='footer'  > © 2022/22  -  CTM  -  contact: patrice.vitte@efrei.net </footer>
     </Router>

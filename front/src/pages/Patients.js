@@ -1,13 +1,20 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function Patients() {
+  const navigate = useNavigate()
   const [patientInfo, setPatientInfo] = useState()
+
+  const HandleAddPatient = async (e) => {
+    e.preventDefault()
+    navigate('/AddPatient')
+  }
 
   const ListAllPatients = async () =>{
       const data = await  window.fetch('/Patients')
       const json = await data.json()
       setPatientInfo(json)
-}
+  }
 ListAllPatients()
   
 return (
@@ -38,6 +45,9 @@ return (
             )}
           </tbody>
         </table>
+        <button onClick={HandleAddPatient}>
+          Add a new patient
+        </button>
       </section>
     </>
   );

@@ -1,16 +1,34 @@
 import { useState } from 'react';
-const Login = () => {
-  console.log("Par ici")
-  const [name, setName] = useState('');
+import { useNavigate } from "react-router-dom";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
+
+export default function Login() {
+  const navigate = useNavigate()
+  const [name, setName] = useState('')
+  const [loginMessage, setLoginMessage] = useState('')
+
+  const HandleSubmit = async (e) => {
+    e.preventDefault()
     const data = await  window.fetch(`/login:${name}`)
-    console.log(data)
     const json = await data.json()
-    console.log(json.role)
+
+    
+    if (json.userID !== 'Not found') {
+      localStorage.setItem('CTM_logedIn', true)
+      localStorage.setItem('CTM_UserID', json.userID)
+      localStorage.setItem('CTM_UserName', json.name)
+      localStorage.setItem('CTM_UserRole', json.role)
+      setLoginMessage('')
+      navigate('/CT');
+    } else {
+      localStorage.setItem('CTM_logedIn', false)
+      localStorage.setItem('CTM_WelcomeMessage',"")
+      setLoginMessage('This name is not recognized. Please try again')
+    }
+    
   };
+
+
 
 
   return (
@@ -29,11 +47,12 @@ const Login = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <button onClick={handleSubmit} className='btn btn-block'>
+        <button onClick={HandleSubmit} className='btn btn-block'>
           login
         </button>
+        <p>{loginMessage}</p>
       </form>
     </section>
   );
 };
-export default Login;
+
