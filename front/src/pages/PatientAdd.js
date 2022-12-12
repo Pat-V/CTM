@@ -16,13 +16,32 @@ export default function PatientAdd() {
   };
 
   const HandleAdd = async (e) => {
-    
     e.preventDefault()
     if (firstName === "" || lastName === "" || age === "" || weight === "" ) {
-      setErrorMessage("One or more fields are blank please verify and try again")
+      setErrorMessage("One or more fields are blank. Please verify and try again")
     } else {
-      
-    }
+      const dataToSend = {
+        "id": -1,
+        "firstName": firstName,
+        "lastName": lastName,
+        "age": age,
+        "weight": weight
+      }
+
+      fetch('/AddPatient', {
+        method:  'POST',
+        headers: {'Content-Type': 'application/json'},
+        body:    JSON.stringify({'data': dataToSend})
+      })
+
+      .then(response => response.json())
+      .then(data => {console.log("La réponse : ", data)})
+      .catch(error => {
+        console.log("err:", error)
+      });
+      navigate('/Patients')
+
+  }
   };
 
 

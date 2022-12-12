@@ -5,31 +5,29 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const navigate = useNavigate()
   const [name, setName] = useState('')
-  const [loginMessage, setLoginMessage] = useState('')
+  const [errorMessage, seterrorMessage] = useState('')
 
   const HandleSubmit = async (e) => {
     e.preventDefault()
     const data = await  window.fetch(`/login:${name}`)
     const json = await data.json()
 
-    
     if (json.userID !== 'Not found') {
-      localStorage.setItem('CTM_logedIn', true)
       localStorage.setItem('CTM_UserID', json.userID)
       localStorage.setItem('CTM_UserName', json.name)
       localStorage.setItem('CTM_UserRole', json.role)
-      setLoginMessage('')
+      localStorage.setItem('CTM_UserKey', json.key)
+      localStorage.setItem('CTM_WelcomeMessage',
+                           `Welcome to CTM ${json.name}. You are connected as ${json.role}`)
+      seterrorMessage('')
       navigate('/CT');
     } else {
       localStorage.setItem('CTM_logedIn', false)
       localStorage.setItem('CTM_WelcomeMessage',"")
-      setLoginMessage('This name is not recognized. Please try again')
+      seterrorMessage('This name is not recognized. Please try again')
     }
     
   };
-
-
-
 
   return (
     <section className='section'>
@@ -50,7 +48,7 @@ export default function Login() {
         <button onClick={HandleSubmit} className='btn btn-block'>
           login
         </button>
-        <p>{loginMessage}</p>
+        <p>{errorMessage}</p>
       </form>
     </section>
   );

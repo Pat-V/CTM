@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SharedLayout from '../pages/SharedLayout'
 import Login from '../pages/login.js'
 import Trials from '../pages/Trials.js'
-import Portfolio from '../pages/Portfolio';
 import Physicians from '../pages/Physicians';
 import Patients from '../pages/Patients';
 import About from '../pages/About.js'
@@ -25,7 +24,6 @@ export default function App() {
         <Route path = '/' element={<SharedLayout />}>
           <Route index  element={<Login />} />
           <Route path = 'CT' element={<Trials />} />
-          <Route path = 'Portfolio' element={<Portfolio />} />
           <Route path = 'Physicians' element={<Physicians />} />
           <Route path = 'Patients' element={<Patients />} />
           <Route path = 'about' element={<About />} />

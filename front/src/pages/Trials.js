@@ -4,16 +4,19 @@ export default function Trials() {
   const [trialsInfo, setTrialsInfo] = useState()
 
   const ListsAllTrials = async () =>{
-      const data = await  window.fetch('/CT')
+      const data = await window.fetch('/CT')
       const json = await data.json()
       setTrialsInfo(json)
 }
+const welcomeMessage = localStorage.getItem('CTM_WelcomeMessage')
+console.log("sans const:",localStorage.getItem('CTM_WelcomeMessage'))
+console.log("avec const:",welcomeMessage)
 ListsAllTrials()
   
 return (
-    <>
       <section className='section'>
         <h3>Clinical trials</h3>
+        <p>{welcomeMessage}</p>
         <table className="table table-hover">
           <thead>
             <tr>
@@ -30,7 +33,7 @@ return (
             {(trialsInfo && 
               trialsInfo.map((trial) => (
                 <tr>
-                  <th scope="row">{trial.id}</th>
+                  <th key={trial.id} scope="row">{trial.id}</th>
                   <td>{trial.title}</td>
                   <td>{trial.description}</td>
                   <td>{trial.startDate}</td>
@@ -43,6 +46,5 @@ return (
           </tbody>
         </table>
       </section>
-    </>
   );
 };

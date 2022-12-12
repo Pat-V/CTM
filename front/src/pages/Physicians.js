@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import WelcomeMessage from "../components/WelcomeMessage"
 
 export default function Physicians() {
   const [physiciansInfo, setPhysiciansInfo] = useState()
@@ -9,11 +10,10 @@ export default function Physicians() {
       setPhysiciansInfo(json)
   }
   ListsAllPhysicians()
-  
   return (
-    <>
       <section className='section'>
         <h3> Physicians</h3>
+        <WelcomeMessage />
         <table className="table table-hover">
           <thead>
             <tr>
@@ -35,6 +35,5 @@ export default function Physicians() {
           </tbody>
         </table>
       </section>
-    </>
   );
 };

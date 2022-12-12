@@ -1,72 +1,60 @@
 const express = require('express')
-const users = require('./data/users.json')
+const jwt = require('jsonwebtoken')
 const fs = require('fs')
 require('dotenv').config()
 
+
+const users = require('./data/users.json')
+const trials = require('./data/trials.json')
+const physicians = require('./data/physicians.json')
+const patients = require('./data/patients.json')
+
 const PORT = process.env.PORT || 1880
+const SECRET_KEY = process.env.SECRET_KEY
 
 const app = express()
       app.use(express.json())
       app.listen(PORT, () => {console.log(`Hi, server is launched on port: ${PORT}`)})
 
-app.get('/login:name', function (req, res)  {
+app.get('/login:name', (req, res) => {
     let dataToReturn = []
     for (const iterator of users) {
-        ID_ToSearch = req.params.name ; ID_ToSearch = ID_ToSearch.replace(':','')
-        if (iterator.name  === ID_ToSearch){
-            console.log("Found " + iterator.name + " in users.json")
+        if (iterator.name  === req.params.name.replace(':','')){
             dataToReturn = iterator
-            //res.json(iterator)
             break
         }
     }
-    const isEmpty = Object.keys(dataToReturn).length === 0 
-    console.log(isEmpty)
-    if (isEmpty) {
+    if (dataToReturn.length === 0) {
         res.send({"userID": "Not found"})
     } else {
+        dataToReturn["key"] = jwt.sign(dataToReturn, SECRET_KEY)
         res.json(dataToReturn)
     }
+})
+
+app.get('/CT',         (_, res) => {res.json(trials)})
+app.get('/Physicians', (_, res) => {res.json(physicians)})
+app.get('/Patients',   (_, res) => {res.json(patients)})
+
+app.post('/AddPatient', (req, res) => {
+    newRecord = req.body.data
+
+    //search for an available new id
+    let newID = -1
+    for (const iterator of patients) {
+        if (Number(iterator.id) > newID){
+            newID = iterator.id
+        }
+    }
+    newID++
+    newRecord.id = newID
     
-
-})
-
-app.get('/CT', (req, res) => {
-    fs.readFile('./data/trials.json', 'utf8', (err, data) => {
-        if (err) {console.log(`Error reading file from disk: ${err}`)}
-        else {
-            res.json(JSON.parse(data))
-        }
-    })
-})
-
-
-app.get('/Portfolio', (req, res) => {
-    fs.readFile('./data/trialsPortfolio.json', 'utf8', (err, data) => {
-        if (err) {console.log(`Error reading file from disk: ${err}`)}
-        else {
-            res.json(JSON.parse(data))
-        }
-    })
-})
-
-//require du fichier
-app.get('/Physicians', (req, res) => {
-    fs.readFile('./data/physicians.json', 'utf8', (err, data) => {
-        if (err) {console.log(`Error reading file from disk: ${err}`)}
-        else {
-            res.json(JSON.parse(data))
-        }
-    })
-})
-
-app.get('/Patients', (req, res) => {
-    fs.readFile('./data/patients.json', 'utf8', (err, data) => {
-        if (err) {console.log(`Error reading file from disk: ${err}`)}
-        else {
-            res.json(JSON.parse(data))
-        }
-    })
+    // add the new record
+    let patientsTable = './data/patients.json';
+    let patientList = JSON.parse(fs.readFileSync(patientsTable, "utf-8"))
+    patientList.push(newRecord)
+    fs.writeFileSync(patientsTable, JSON.stringify(patientList))
+    res.send({Stauts: "Patient added"})
 })
     
 
